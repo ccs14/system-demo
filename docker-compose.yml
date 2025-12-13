@@ -26,6 +26,8 @@ services:
     build:
       context: ./src/reddit-api
       dockerfile: Dockerfile
+    environment:
+      - APP_DEBUG=0 
     container_name: reddit-api
     ports:
       - "3001:3001"

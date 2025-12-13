@@ -1,15 +1,16 @@
 import axios from "axios";
 import * as Redis from "../Messaging/Redis.js";
 import * as RabbitMQ from "../Messaging/RabbitMQ.js";
+import { info, warn, error, debug } from "../Logger/Logger.js";
 
 export const getRandomPost = async (subredditName) => {
   const redditUrl = `http://www.reddit.com/r/${subredditName}/.json`;
 
-  console.log(
+  info(
     "🚀 ~ file: reddit.js:8 ~ getRandomPost ~ subredditName:",
     subredditName
   );
-  console.log("🚀 ~ file: reddit.js:9 ~ getRandomPost ~ redditUrl:", redditUrl);
+  info("🚀 ~ file: reddit.js:9 ~ getRandomPost ~ redditUrl:", redditUrl);
 
   try {
     const response = await axios.get(redditUrl);
@@ -43,8 +44,8 @@ export const getRandomPost = async (subredditName) => {
 
       return post;
     }
-  } catch (error) {
-    console.log("🚀 ~ file: reddit.js:17 ~ getRandomPost ~ error:", error);
+  } catch (e) {
+    error("🚀 ~ file: reddit.js:17 ~ getRandomPost ~ error:", e.message);
     return {};
   }
 };
@@ -52,8 +53,8 @@ export const getRandomPost = async (subredditName) => {
 export const getTopPosts = async (subredditName, range) => {
   const redditUrl = `http://www.reddit.com/r/${subredditName}/top/.json?sort=top&t=${range}`;
 
-  console.log("🚀 ~ getTopPosts ~ subredditName:", subredditName);
-  console.log("🚀 ~ getTopPosts ~ redditUrl:", redditUrl);
+  info("🚀 ~ getTopPosts ~ subredditName:", subredditName);
+  info("🚀 ~ getTopPosts ~ redditUrl:", redditUrl);
 
   try {
     const response = await axios.get(redditUrl);
@@ -83,8 +84,8 @@ export const getTopPosts = async (subredditName, range) => {
 
       return posts;
     }
-  } catch (error) {
-    console.log("🚀 ~ getTopPosts ~ error:", error);
+  } catch (e) {
+    error("🚀 ~ getTopPosts ~ error:", e.message);
     return {};
   }
 };

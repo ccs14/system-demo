@@ -1,3 +1,4 @@
+import { info, warn, error, debug } from "./Logger/Logger.js";
 import * as Reddit from "./API/Reddit.js";
 import express from "express";
 import cors from "cors";
@@ -28,5 +29,5 @@ app.get("/top", async (req, res) => {
 });
 
 app.listen(3001, (req, res) => {
-  console.log("Server is running at port 3001");
+  info("Server is running at port 3001");
 });
