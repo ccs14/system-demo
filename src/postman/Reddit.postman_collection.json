@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "fb1f84df-20a0-444b-a438-a31b351ac963",
+		"name": "Reddit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18249950"
+	},
+	"item": [
+		{
+			"name": "health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "subreddit",
+							"value": "dotnet",
+							"type": "text"
+						},
+						{
+							"key": "range",
+							"value": "year",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "subreddit",
+							"value": "dotnet",
+							"type": "text"
+						},
+						{
+							"key": "range",
+							"value": "year",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/random?subreddit=dotnet&range=year",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"random"
+					],
+					"query": [
+						{
+							"key": "subreddit",
+							"value": "dotnet"
+						},
+						{
+							"key": "range",
+							"value": "year"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "top_day",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "subreddit",
+							"value": "dotnet",
+							"type": "text"
+						},
+						{
+							"key": "range",
+							"value": "year",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/top?subreddit=learnmachinelearning&range=day",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"top"
+					],
+					"query": [
+						{
+							"key": "subreddit",
+							"value": "learnmachinelearning"
+						},
+						{
+							"key": "range",
+							"value": "day"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "top_year",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "subreddit",
+							"value": "dotnet",
+							"type": "text"
+						},
+						{
+							"key": "range",
+							"value": "year",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/top?subreddit=dotnet&range=day",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"top"
+					],
+					"query": [
+						{
+							"key": "subreddit",
+							"value": "dotnet"
+						},
+						{
+							"key": "range",
+							"value": "day"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
