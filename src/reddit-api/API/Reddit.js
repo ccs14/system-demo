@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as Redis from "../Messaging/Redis.js";
+import * as RabbitMQ from "../Messaging/RabbitMQ.js";
 
 export const getRandomPost = async (subredditName) => {
   const redditUrl = `http://www.reddit.com/r/${subredditName}/.json`;
@@ -11,12 +12,12 @@ export const getRandomPost = async (subredditName) => {
   console.log("🚀 ~ file: reddit.js:9 ~ getRandomPost ~ redditUrl:", redditUrl);
 
   try {
-    console.log(`Reddit API response for '${redditUrl}':`);
     const response = await axios.get(redditUrl);
     if (response && response.status === 200) {
       const children = response.data.data.children;
-      const randomPost =
-        children[Math.floor(Math.random() * children.length)].data;
+
+      const index = Math.floor(Math.random() * children.length);
+      const randomPost = children[index].data;
 
       const post = {
         id: randomPost.id,
@@ -32,7 +33,13 @@ export const getRandomPost = async (subredditName) => {
       // add response to cache
       const id = post.id;
       const key = subredditName + "_random_" + id;
-      await Redis.SimpleSet(key, JSON.stringify(post), 3600);
+      const data = JSON.stringify(post);
+
+      // post to redis for cache
+      await Redis.SimpleSet(key, data, 3600);
+
+      // post to rabbitmq for analytics
+      await RabbitMQ.sendMessage(data);
 
       return post;
     }
@@ -49,7 +56,6 @@ export const getTopPosts = async (subredditName, range) => {
   console.log("🚀 ~ getTopPosts ~ redditUrl:", redditUrl);
 
   try {
-    console.log(`Reddit API response for '${redditUrl}':`);
     const response = await axios.get(redditUrl);
     if (response && response.status === 200) {
       const children = response.data.data.children;
@@ -58,16 +64,22 @@ export const getTopPosts = async (subredditName, range) => {
       // take the top10 in order, we only want to post the title and url to keep it small
       for (let i = 0; i < 10; i++) {
         let currentPost = children[i].data;
-        let p = {
+        let post = {
           title: currentPost.title,
           url: currentPost.url,
         };
-        posts.push(p);
+        posts.push(post);
       }
 
       // add response to cache
       const key = subredditName + "_top10_" + range;
-      await Redis.SimpleSet(key, JSON.stringify(posts), 3600);
+      const data = JSON.stringify(posts);
+
+      // add to cache
+      await Redis.SimpleSet(key, data, 3600);
+
+      // add message for analytics
+      await RabbitMQ.sendMessage(data);
 
       return posts;
     }
