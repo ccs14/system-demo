@@ -123,5 +123,5 @@ dist
 
 
 src/analytics-service/AnalyticsApi/.idea
-src/analytics-service/AnalyticsApi/obj/*
-src/analytics-service/AnalyticsApi/bin/*
+src/analytics-service/AnalyticsApi/AnalyticsApi/obj/*
+src/analytics-service/AnalyticsApi/AnalyticsApi/bin/*
