@@ -121,7 +121,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
-src/analytics-service/AnalyticsApi/.idea
-src/analytics-service/AnalyticsApi/AnalyticsApi/obj/*
-src/analytics-service/AnalyticsApi/AnalyticsApi/bin/*
+.DS_Store
+src/.DS_Store
+src/AnalyticsService/.DS_Store
+src/analytics-service/AnalyticsService/.idea
+src/analytics-service/AnalyticsService/AnalyticsService/obj/*
+src/analytics-service/AnalyticsService/AnalyticsService/bin/*

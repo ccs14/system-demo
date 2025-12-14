@@ -9,11 +9,26 @@ run:
 
 - System Design doc
 - Analytics Service in dotnet
+
   - Pull messages from RabbitMQ
   - Write to db
   - Expose analytics API
 
+- Add unit tests
+
 # Future State
+
+CI/CD
+
+- Jenkins
+- Pipeline for Unit Tests
+
+Logging
+
+- ELK Stack
+- Datadog
+- SumoLogic
+- Seq on Local
 
 Front End
 
