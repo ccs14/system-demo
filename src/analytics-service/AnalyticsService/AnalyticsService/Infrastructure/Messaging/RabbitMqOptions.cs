@@ -9,6 +9,7 @@ public sealed class RabbitMqOptions
     public string Password { get; init; } = default!;
 
     public string VirtualHost { get; init; } = "/";
-    public string QueueName { get; init; } = default!;
-    public ushort PrefetchCount { get; init; } = 50;
+    public string RedditRandomQueue { get; init; } = default!;
+    public string RedditTopQueue { get; init; } = default!;
+    public int PrefetchCount { get; init; } = 50;
 }
