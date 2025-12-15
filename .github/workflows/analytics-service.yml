@@ -1,0 +1,48 @@
+name: analytics-service
+
+on:
+  push:
+    paths:
+      - "src/analytics-service/**"
+      - ".github/workflows/analytics-service.yml"
+  pull_request:
+    paths:
+      - "src/analytics-service/**"
+      - ".github/workflows/analytics-service.yml"
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/analytics-service/AnalyticsService/AnalyticsService
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Test
+        run: dotnet test -c Release --no-build
+
+  docker_build:
+    runs-on: ubuntu-latest
+    needs: build_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker build
+        run: |
+          docker build \
+            -f src/analytics-service/AnalyticsService/AnalyticsService/Dockerfile \
+            -t analytics-service:ci \
+            src/analytics-service
