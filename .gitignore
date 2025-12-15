@@ -1,8 +1,6 @@
 # API KEY
 config.json
 
-package-lock.json
-
 # Logs
 logs
 *.log
