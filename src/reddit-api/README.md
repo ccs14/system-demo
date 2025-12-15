@@ -1,22 +1,26 @@
-# URLs
+## API
 
-API Health:
+Health:
 
 - http://localhost:3001
 
-Samples:
+Random
 
-- Random:
-  - http://localhost:3001/random?subreddit=hiking&range=day
-  - http://localhost:3001/random?subreddit=dotnet&range=year
-- Top:
-  - http://localhost:3001/top?subreddit=learnmachinelearning&range=day
-  - http://localhost:3001/top?subreddit=hiking&range=year
+- http://localhost:3001/random?subreddit=hiking&range=day
+- http://localhost:3001/random?subreddit=dotnet&range=year
 
-Redis:
+Top
+
+- http://localhost:3001/top?subreddit=learnmachinelearning&range=day
+- http://localhost:3001/top?subreddit=hiking&range=year
+
+## RabbitMQ
+
+Manager:
+
+- http://localhost:15672
+- Login: docker/docker
+
+## Redis
 
 - http://localhost:6379
-
-RabbitMQ Manager:
-
-- http://localhost:15672/

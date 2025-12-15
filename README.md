@@ -8,19 +8,14 @@ run:
 # TODO
 
 - System Design doc
-- Analytics Service in dotnet
 
-  - Pull messages from RabbitMQ
-  - Write to db
-  - Expose analytics API
-
-- Add unit tests
+- Add unit tests reddit api
+- Add tests analytics
 
 # Future State
 
 CI/CD
 
-- Jenkins
 - Pipeline for Unit Tests
 
 Logging
@@ -52,3 +47,14 @@ Login Service
 - Hashed and salted passwords at rest in db
 - Separating the auth service could be overkill/unnecessary
   - Need to investigate controllers and what is needed to make the right sizing/complexity considerations
+
+# Completed
+
+- Build api to pull data from reddit
+- Write results to redis cache
+- Pull data from cache on hit
+- Push messages to rabbitmq
+- Build DDD analytics service in dotnet 8
+- Read data from rabbit and write to postgres
+- Read analytics data from postgres with api
+- Create CI github action for analytics service
