@@ -4,12 +4,12 @@ Health:
 
 - http://localhost:3001
 
-Random
+Random:
 
 - http://localhost:3001/random?subreddit=hiking&range=day
 - http://localhost:3001/random?subreddit=dotnet&range=year
 
-Top
+Top:
 
 - http://localhost:3001/top?subreddit=learnmachinelearning&range=day
 - http://localhost:3001/top?subreddit=hiking&range=year
