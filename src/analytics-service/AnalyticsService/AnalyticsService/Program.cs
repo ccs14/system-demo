@@ -20,7 +20,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (Environment.GetEnvironmentVariable("RUN_MIGRATIONS") == "true")
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AnalyticsDbContext>();
+    db.Database.Migrate();
+}
+
+bool enableSwagger = false;
+var swaggerSetting = Environment.GetEnvironmentVariable("ENABLE_SWAGGER") == "true";
+if (app.Environment.IsDevelopment() || swaggerSetting)
+{
+    enableSwagger = true;
+}
+
+if (enableSwagger)
 {
     app.UseSwagger();
     app.UseSwaggerUI();

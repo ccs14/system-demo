@@ -60,6 +60,8 @@ services:
       dockerfile: ./AnalyticsService/AnalyticsService/Dockerfile
     container_name: analytics-service
     environment:
+      - ENABLE_SWAGGER=true
+      - RUN_MIGRATIONS=true
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5152:8080"
