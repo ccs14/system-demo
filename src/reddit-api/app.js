@@ -25,7 +25,7 @@ app.get("/top", async (req, res) => {
   const range = req.query.range;
   const data = await Reddit.getTopPosts(subreddit, range);
 
-  res.json(Object.assign({}, data));
+  res.json(data);
 });
 
 app.listen(3001, (req, res) => {

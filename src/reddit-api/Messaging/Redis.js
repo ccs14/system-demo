@@ -10,69 +10,80 @@ const redisClient = createClient({
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 
-// debugging and healthcheck
+const checkConnection = async () => {
+  if (!redisClient.isOpen) {
+    await redisClient.connect();
+  }
+};
+
 export const loadSampleData = async () => {
   try {
-    await redisClient.connect();
+    await checkConnection();
     await redisClient.set("test2", "value2");
     const value = await redisClient.get("test2");
     info("🚀 ~ data from redis:", value);
-    await redisClient.disconnect();
   } catch (e) {
     error(e.message);
+  } finally {
+    try {
+      if (redisClient.isOpen) {
+        await redisClient.disconnect();
+      }
+    } catch {}
   }
 };
 
-export const KeyExists = async (key) => {
+export const GetKeyAsync = async (key) => {
   try {
-    await redisClient.connect();
-    const value = await redisClient.EXISTS(key);
-    info("🚀 ~ file: Redis.js:26 ~ KeyExists ~ value:", value);
-    const res = Object.assign({}, value);
-    info("🚀 ~ TryGetKey ~ value:", JSON.stringify(res));
-    await redisClient.disconnect();
-    return value === 1;
-  } catch (e) {
-    error(e.message);
-  }
-};
-
-export const GetKeyOrNullAsync = async (key) => {
-  try {
-    await redisClient.connect();
+    await checkConnection();
     const value = await redisClient.get(key);
-    const res = Object.assign({}, value);
-    info("🚀 ~ file: Redis.js:26 ~ GetKeyOrNullAsync ~ res:", res);
-    await redisClient.disconnect();
-    return res;
+    info("🚀 ~ GetKeyOrNullAsync ~ cache hit (key):", key);
+    return value;
   } catch (e) {
     error(e.message);
+    return null;
+  } finally {
+    try {
+      if (redisClient.isOpen) {
+        await redisClient.disconnect();
+      }
+    } catch {}
   }
 };
 
 export const SetKeyAsync = async (key, value, expire = 300) => {
   try {
-    await redisClient.connect();
-
-    if (!KeyExists(key)) {
-      const res = await redisClient.set(key, value, "EX", expire);
-      info("🚀 ~ setting new key: ", res);
-    } else {
-      info("🚀 ~ key exists with key: ", key);
+    await checkConnection();
+    const res = await redisClient.set(key, value, { EX: expire, NX: true });
+    if (res === null) {
+      info("🚀 ~ key exists with key:", key);
+      return false;
     }
-
-    await redisClient.disconnect();
+    info("🚀 ~ setting new key:", res);
+    return true;
   } catch (e) {
     error(e.message);
+    return false;
+  } finally {
+    try {
+      if (redisClient.isOpen) {
+        await redisClient.disconnect();
+      }
+    } catch {}
   }
 };
 
 export const SimpleSet = async (key, value, expire = 300) => {
   try {
-    await redisClient.connect();
-    await redisClient.set(key, value, "EX", expire);
-    await redisClient.disconnect();
+    await checkConnection();
+    await redisClient.set(key, value, { EX: expire });
   } catch (e) {
     error(e.message);
+  } finally {
+    try {
+      if (redisClient.isOpen) {
+        await redisClient.disconnect();
+      }
+    } catch {}
   }
 };

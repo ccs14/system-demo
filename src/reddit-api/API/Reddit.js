@@ -4,15 +4,15 @@ import * as RabbitMQ from "../Messaging/RabbitMQ.js";
 import { info, warn, error, debug } from "../Logger/Logger.js";
 
 export const getRandomPost = async (subredditName) => {
-  const redditUrl = `http://www.reddit.com/r/${subredditName}/.json`;
-
-  info(
-    "🚀 ~ file: reddit.js:8 ~ getRandomPost ~ subredditName:",
-    subredditName
-  );
-  info("🚀 ~ file: reddit.js:9 ~ getRandomPost ~ redditUrl:", redditUrl);
-
   try {
+    const redditUrl = `http://www.reddit.com/r/${subredditName}/.json`;
+
+    info(
+      "🚀 ~ file: reddit.js:8 ~ getRandomPost ~ subredditName:",
+      subredditName
+    );
+    info("🚀 ~ file: reddit.js:9 ~ getRandomPost ~ redditUrl:", redditUrl);
+
     const response = await axios.get(redditUrl);
     if (response && response.status === 200) {
       const children = response.data.data.children;
@@ -51,12 +51,20 @@ export const getRandomPost = async (subredditName) => {
 };
 
 export const getTopPosts = async (subredditName, range) => {
-  const redditUrl = `http://www.reddit.com/r/${subredditName}/top/.json?sort=top&t=${range}`;
-
-  info("🚀 ~ getTopPosts ~ subredditName:", subredditName);
-  info("🚀 ~ getTopPosts ~ redditUrl:", redditUrl);
-
   try {
+    const key = subredditName + "_top10_" + range;
+    const res = await Redis.GetKeyAsync(key);
+    if (res !== null) {
+      info("🚀 ~ cache hit (key):", key);
+      return res;
+    }
+
+    info("🚀 ~ cache miss (key):", key);
+
+    const redditUrl = `http://www.reddit.com/r/${subredditName}/top/.json?sort=top&t=${range}`;
+    info("🚀 ~ getTopPosts ~ subredditName:", subredditName);
+    info("🚀 ~ getTopPosts ~ redditUrl:", redditUrl);
+
     const response = await axios.get(redditUrl);
     if (response && response.status === 200) {
       const children = response.data.data.children;
@@ -73,7 +81,6 @@ export const getTopPosts = async (subredditName, range) => {
       }
 
       // add response to cache
-      const key = subredditName + "_top10_" + range;
       const data = JSON.stringify(posts);
 
       // add to cache
