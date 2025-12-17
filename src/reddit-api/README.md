@@ -23,7 +23,7 @@ Top:
 Manager:
 
 - http://localhost:15672
-- Login: docker/docker
+- login: docker/docker
 
 ## Redis
 

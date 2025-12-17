@@ -11,3 +11,8 @@ Ready:
 Stats:
 
 - http://localhost:5152/stats/counts
+
+## Postgres
+
+- localhost:5432
+- login: postgres/postgres
