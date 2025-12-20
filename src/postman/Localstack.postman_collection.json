@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "938594a4-1b4e-46e2-82d0-19ae939ee64c",
+		"name": "Localstack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18249950"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4566/_localstack/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4566",
+					"path": [
+						"_localstack",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

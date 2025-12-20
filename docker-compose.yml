@@ -71,6 +71,18 @@ services:
       rabbitmq:
         condition: service_started
 
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    environment:
+      - SERVICES=sqs,sns
+      - DEFAULT_REGION=us-west-2
+    ports:
+      - "4566:4566"
+      - "8081:8080"
+    volumes:
+      - localstack-data:/var/lib/localstack
+
 networks:
   default:
     name: pizzanet
@@ -79,3 +91,4 @@ volumes:
   redis-data:
   rabbitmq-data:
   postgres-data:
+  localstack-data:

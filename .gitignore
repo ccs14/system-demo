@@ -125,3 +125,7 @@ src/AnalyticsService/.DS_Store
 src/analytics-service/AnalyticsService/.idea
 src/analytics-service/AnalyticsService/AnalyticsService/obj/*
 src/analytics-service/AnalyticsService/AnalyticsService/bin/*
+
+.terraform/
+*.tfstate
+*.tfstate.*
