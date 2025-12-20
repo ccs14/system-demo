@@ -129,3 +129,5 @@ src/analytics-service/AnalyticsService/AnalyticsService/bin/*
 .terraform/
 *.tfstate
 *.tfstate.*
+crash.log
+crash.*.log
