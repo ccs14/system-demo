@@ -67,6 +67,18 @@ Login Service
 - Separating the auth service could be overkill/unnecessary
   - Need to investigate controllers and what is needed to make the right sizing/complexity considerations
 
+Other
+
+- Webhooks
+  - producer
+  - consumer
+  - add auth
+- Async Patterns
+ - async/await
+ - SemaphoreSlim
+ - producer/consumer
+ - multithreaded processing
+
 # Completed
 
 - Build api to pull data from reddit
