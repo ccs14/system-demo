@@ -75,10 +75,10 @@ Other
   - add auth
 
 - Async Patterns
- - async/await
- - SemaphoreSlim
- - producer/consumer
- - multithreaded processing
+  - async/await
+  - SemaphoreSlim
+  - producer/consumer
+  - multithreaded processing
 
 # Completed
 
